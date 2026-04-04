@@ -40,9 +40,14 @@ This folder also contains the Jupyter Notebooks created for this analysis:
 
 ## Notebook Updates and Additions for Final Report
 
-The following notebooks were updated to support the final report
+#### The following notebooks were updated to support the final report
 
 * covid_drivers_06_PRIM_MODL_RF - an ROC AUC plot was created for use in the final report
+
+#### The following notebooks are additions to the project to support the final report
+
+* covid_drivers_10_TIME_SERIES_1
+* covid_drivers_10_TIME_SERIES_1
 
 ## Instructions for Replicating this analysis
 
