@@ -43,11 +43,13 @@ This folder also contains the Jupyter Notebooks created for this analysis:
 #### The following notebooks were updated to support the final report
 
 * covid_drivers_06_PRIM_MODL_RF - an ROC AUC plot was created for use in the final report
+* covid_drivers_08_SEC_MODL_SVM - one-class classifier was re-run with correct value for nu hyperparameter with no improvement
+* covid_drivers_09_SEC_MODL_COFAC_AGGDRV - remainder='passthrough' was added to the ColumnTransformer to allow the numeric predictors to pass through the preprocessor to be included in the model
 
 #### The following notebooks are additions to the project to support the final report
 
 * covid_drivers_10_TIME_SERIES_1
-* covid_drivers_10_TIME_SERIES_1
+* covid_drivers_10_TIME_SERIES_2
 
 ## Instructions for Replicating this analysis
 
