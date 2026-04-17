@@ -12,6 +12,7 @@ A current topic of interest that has open questions involves PA drivers and driv
 * The average number of daily trips taken by car dropped significantly in April 2020 during the COVID-19 lockdown compared to the last six months of 2019. (Tefft et al., 2021) 
 
 While these studies confirm important trends and patterns, none of them show if aggressive driving actually increased during COVID or if it has since declined or stabilized. They also do not show if the rate of accidents caused by at least one aggressive driver has changed or if any type of aggression (speeding, distraction, recklessness) has increased more than others. Data scientists can answer these questions using appropriate data and modeling techniques.
+
 It is important for the public to know if they are correct about an increase in aggressive driving, and it is important to understand which types may have increased. Public awareness brings solutions by moving the public to elect public officials who will enact laws or by moving organizations and individuals to organize and fund advocacy or education efforts. 
 
 ## Jupyter Notebooks
@@ -25,31 +26,42 @@ This folder also contains the Jupyter Notebooks created for this analysis:
 * covid_drivers_03_expl - reads the merged dataset from covid_drivers_02_DESC and evaluates univariate and bivariate relationships including time series plots.
 * covid_drivers_04_qual - reads the merged dataset from covid_drivers_02_DESC and assesses the quality of the data - missingness, consistency, etc.
 * covid_drivers_05_PREP - reads CRASH, FLAGS, and VEHICLE datasets, merges CRASH and FLAGS, filters records to include only crashes that involve a vehicle in motion or a hit and run using the VEHICLE dataset, decodes variables, selects columns and writes 'ready_data_final.csv' dataset to file for analysis.
-* covid_drivers_06_PRIM_MODL_LGR -  primary objective model POST_COVID ~ AGGRESSIVE_DRIVING with logistic regression
-* covid_drivers_06_PRIM_MODL_RF - primary objective model POST_COVID ~ AGGRESSIVE_DRIVING with random forest
-* covid_drivers_06_PRIM_MODL_XGB - primary objective model POST_COVID ~ AGGRESSIVE_DRIVING with gradient boosting
-* covid_drivers_07_PRIM_MODL_LGR - primary objective model POST_COVID ~ NHTSA_AGG_DRIVING with logistic regression
-* covid_drivers_07_PRIM_MODL_RF - primary objective model POST_COVID ~ NHTSA_AGG_DRIVING with random forest
-* covid_drivers_07_PRIM_MODL_XGB - primary objective model POST_COVID ~ NHTSA_AGG_DRIVING with gradient boosting
-* covid_drivers_08_SEC_MODL_LOF - secondary objective models POST_COVID ~ NO_CLEARANCE and other specific behaviors separately, with local outlier factor one-class classifier
-* covid_drivers_08_SEC_MODL_SVM - secondary objective models POST_COVID ~ NO_CLEARANCE and other specific behaviors, separately, with support vector machine one-class classifier
-* covid_drivers_09_SEC_MODL_COFAC_AGGDRV - secondary objective model POST_COVID plus demographic flags ~ AGGRESSIVE_DRIVING with logistic regression, random forest, and gradient boosting
-* covid_drivers__09_SEC_MODL_COFAC_NHTSA - secondary objective model POST_COVID plus demographic flags ~ NHTSA_AGG_DRIVING with logistic regression, random forest, and gradient boosting
-* covid_drivers_10_TIME_SERIES_1 - Time series lag and autocorrelation plots
-* covid_drivers_10_TIME_SERIES_2 - Time series decomposition and changes in seasonal behavior over time
+* covid_drivers_06_PRIM_MODL_LGR -  primary objective model AGGRESSIVE_DRIVING ~ POST_COVID with logistic regression
+* covid_drivers_06_PRIM_MODL_RF - primary objective model AGGRESSIVE_DRIVING ~ POST_COVID with random forest
+* covid_drivers_06_PRIM_MODL_XGB - primary objective model AGGRESSIVE_DRIVING ~ POST_COVID with gradient boosting
+* covid_drivers_07_SEC_MODL_SVM - secondary objective models NO_CLEARANCE ~ POST_COVID and other specific behaviors, separately, with support vector machine one-class classifier
+* covid_drivers_08_SEC_MODL_COFAC_LGR -  secondary objective model AGGRESSIVE_DRIVING ~ POST_COVID plus demographic flags and interactions with logistic regression
+* covid_drivers_08_SEC_MODL_COFAC_RF - secondary objective model AGGRESSIVE_DRIVING ~ POST_COVID plus demographic flags with random forest
+* covid_drivers_08_SEC_MODL_COFAC_XGB - secondary objective model AGGRESSIVE_DRIVING ~ POST_COVID plus demographic flags with gradient boosting
+* covid_drivers_09_TIME_SERIES_1 - Time series lag and autocorrelation plots
+* covid_drivers_09_TIME_SERIES_2 - Time series decomposition and changes in seasonal behavior over time
 
 ## Notebook Updates and Additions for Final Report
+The notation for the model in the header was incorrect. This was corrected in each notebook. 
 
 #### The following notebooks were updated to support the final report
 
-* covid_drivers_06_PRIM_MODL_RF - an ROC AUC plot was created for use in the final report
-* covid_drivers_08_SEC_MODL_SVM - one-class classifier was re-run with correct value for nu hyperparameter with no improvement
-* covid_drivers_09_SEC_MODL_COFAC_AGGDRV - remainder='passthrough' was added to the ColumnTransformer to allow the numeric predictors to pass through the preprocessor to be included in the model
+* covid_drivers_06_PRIM_MODL_LGR
+  * An ROC AUC plot was created for use in the final report
+  * Statsmodels was run for model summary
+  * Robustness testing performed
+* covid_drivers_07_SEC_MODL_SVM (was covid_drivers_08_SEC_MODL_SVM)
+  * One-class classifier was re-run with the correct nu hyperparameter value without improvement
+* covid_drivers_09_SEC_MODL_COFAC_AGGDRV
+  * The parameter remainder='passthrough' was added to the ColumnTransformer to allow the numeric predictors to pass through the preprocessor to be included in the model
+  * Split up into three notebooks for running LGR, RF, and XGB separately
+    * covid_drivers_08_SEC_MODL_COFAC_LGR
+    * covid_drivers_08_SEC_MODL_COFAC_RF
+    * covid_drivers_08_SEC_MODL_COFAC_XGB
+* covid_drivers_08_SEC_MODL_COFAC_LGR
+  * An ROC AUC plot was created for use in the final report
+  * Statsmodels was run for model summary
+  * Robustness testing performed
 
 #### The following notebooks are additions to the project to support the final report
 
-* covid_drivers_10_TIME_SERIES_1
-* covid_drivers_10_TIME_SERIES_2
+* covid_drivers_09_TIME_SERIES_1
+* covid_drivers_09_TIME_SERIES_2
 
 ## Instructions for Replicating this analysis
 
@@ -64,11 +76,11 @@ This folder also contains the Jupyter Notebooks created for this analysis:
 5.  Create the following folder hierarchy on your Google Drive:
 'MyDrive/Colab Notebooks/Case Studies in Data Science/data/ready/'
 
-6. Copy the Jupyter Notebooks with the numbers 06, 07, 08, 09, and 10 in the filenames to the 'Case Studies in Data Science' folder.
+6. Copy the Jupyter Notebooks with the numbers 06, 07, 08, and 09 in the filenames to the 'Case Studies in Data Science' folder.
 
 7. Copy ready_data.csv and ready_data_final.csv to the 'ready' folder.
 
-8. Using Google Colaboratory, open and run (see Note below) the notebooks with the numbers 06, 07, 08, 09, and 10 in the filenames in order based on the number in the filename. Notebooks with the same number can be run in any order within the group.
+8. Using Google Colaboratory, open and run (see Note below) the notebooks with the numbers 06, 07, 08, and 09 in the filenames in order based on the number in the filename. Notebooks with the same number can be run in any order within the group.
 
 Note: Some of these notebooks were setup to write images to files. This functionality was either commented out or revised to work with Colaboratory. However, the ones setup to write to the Google Drive using Colaboratory still do not work, but they do not produce errors that stop the execution of the notebook.
  
